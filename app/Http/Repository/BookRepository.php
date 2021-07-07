@@ -15,7 +15,6 @@ class BookRepository{
 			$bookRepo->category = $request['bookCategory'];
 			$bookRepo->author = $request['bookAuthor'];
 			$bookRepo->status = $request['bookStatus'];
-			$bookRepo->created_at = NOW();
 			$bookRepo->save();
 			$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil disimpan"];
 			
