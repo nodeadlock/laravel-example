@@ -6,12 +6,15 @@ use App\Http\Repository\BookRepository;
 use App\Http\Requests\StoreDataBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Repository\StatusRepository;
 
 class AdminController extends Controller
 {
 	protected $bookRepo;
+	protected $statusRepo;
 	public function __construct(){
 		$this->bookRepo = new BookRepository();
+		$this->statusRepo = new StatusRepository();
 	}
     public function indexAdmin(){
     	return view('admin-index');
@@ -68,5 +71,10 @@ class AdminController extends Controller
     	return redirect()->route('admin_list_book');
     }
     
+    public function listStatus(){
+    	dd("test");
+    	$getStatus = $this->statusRepo->getDataRepository();
+    	return view('admin-list-status')->with('getStatusData', $getStatus);
+    }
 	
 }

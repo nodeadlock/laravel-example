@@ -47,4 +47,5 @@ Route::post('/admin/admin_save_book', [AdminController::class,'saveBook'])->name
 Route::get('/admin/admin_update_book/{id}', [AdminController::class,'updateBook'])->name('admin_update_book');
 Route::post('/admin/admin_save_update_book', [AdminController::class,'saveUpdateBook'])->name('admin_save_update_book');
 Route::get('/admin/admin_save_delete_book/{id}', [AdminController::class,'saveDeleteBook'])->name('admin_save_delete_book');
+Route::get('/admin/admin_list_status', [AdminController::class,'listStatus'])->name('admin_list_status');
 

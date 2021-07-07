@@ -24,7 +24,7 @@ table {
 			<td colspan="8" align="center">ADMINISTRATOR - SISTEM PEMINJAMAN BUKU</td>
 		</tr>
 		<tr>
-			<td colspan="8" align="center">LIST OF BOOK</td>
+			<td colspan="8" align="center">LIST OF STATUS</td>
 		</tr>
 		@if(Session::has('message'))
 		<tr>
@@ -37,42 +37,22 @@ table {
 		@endif
 		<tr>
 			<td colspan="8" align="right">
-				<a href="{{route('admin_add_book')}}">
-					<b>Add New Book</b>
+				<a href="{{route('admin_add_status')}}">
+					<b>Add New Status</b>
 				</a>
 				|
-				<a href="{{route('admin_list_status')}}">
-					<b>Manage Status</b>
+				<a href="{{route('admin_list_book')}}">
+					<b>Manage Book</b>
 				</a>
 			</td>
 		</tr>
 		<tr style=" font-weight: bold;background-color:aqua;">
-			<td>Judul</td>
-			<td>Deskripsi</td>
-			<td>Stock</td>
-			<td>Category</td>
-			<td>Pengarang</td>
 			<td>Status</td>
 			<td>Date Updated</td>
 			<td>Action</td>
 		</tr>
-		<!-- 
-		<tr>
-			<td>my title book</td>
-			<td>my description</td>
-			<td align="center">5</td>
-			<td>learning</td>
-			<td>my author</td>
-			<td>available</td>
-		</tr>
-		 -->
-		 @foreach ($getBookData as $book)
+		 @foreach ($getStatusData as $status)
 		 <tr>
-			<td>{{$book->title}}</td>
-			<td>{{$book->description}}</td>
-			<td align="center">{{$book->stock}}</td>
-			<td>{{$book->category}}</td>
-			<td>{{$book->author}}</td>
 			<td>{{$book->status}}</td>
 			<td>{{$book->updated_at}}</td>
 			<td>
