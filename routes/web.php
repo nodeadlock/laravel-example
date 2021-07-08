@@ -41,13 +41,20 @@ Route::post('/practice', [PracticeController::class,'storeDataPractice'])->name(
 
 
 //test-case, admin page
+//admin book
 Route::get('/admin/admin_list_book', [AdminController::class,'listBook'])->name('admin_list_book');
 Route::get('/admin/admin_add_book', [AdminController::class,'addBook'])->name('admin_add_book');
 Route::post('/admin/admin_save_book', [AdminController::class,'saveBook'])->name('admin_save_book');
 Route::get('/admin/admin_update_book/{id}', [AdminController::class,'updateBook'])->name('admin_update_book');
 Route::post('/admin/admin_save_update_book', [AdminController::class,'saveUpdateBook'])->name('admin_save_update_book');
 Route::get('/admin/admin_save_delete_book/{id}', [AdminController::class,'saveDeleteBook'])->name('admin_save_delete_book');
-Route::get('/admin/admin_list_status', [AdminController::class,'listStatus'])->name('admin_list_status');
-Route::get('/admin/admin_add_status', [AdminController::class,'addStatus'])->name('admin_add_status');
-Route::post('/admin/admin_save_status', [AdminController::class,'saveStatus'])->name('admin_save_status');
+
+//admin book status
+Route::get('/admin/admin_list_book_status', [AdminController::class,'listBookStatus'])->name('admin_list_book_status');
+Route::get('/admin/admin_add_book_status', [AdminController::class,'addBookStatus'])->name('admin_add_book_status');
+Route::post('/admin/admin_save_book_status', [AdminController::class,'saveBookStatus'])->name('admin_save_book_status');
+Route::get('/admin/admin_update_book_status/{id}', [AdminController::class,'updateBookStatus'])->name('admin_update_book_status');
+Route::post('/admin/admin_save_update_book_status', [AdminController::class,'saveUpdateBookStatus'])->name('admin_save_update_book_status');
+Route::get('/admin/admin_save_delete_book_status/{id}', [AdminController::class,'saveDeleteBookStatus'])->name('admin_save_delete_book_status');
+
 

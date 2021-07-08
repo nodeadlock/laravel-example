@@ -41,7 +41,7 @@ table {
 					<b>Add New Book</b>
 				</a>
 				|
-				<a href="{{route('admin_list_status')}}">
+				<a href="{{route('admin_list_book_status')}}">
 					<b>Manage Status</b>
 				</a>
 			</td>

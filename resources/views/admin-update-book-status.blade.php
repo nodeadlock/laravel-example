@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Admin - Update Book</title>
+<title>Admin - Update Book Status</title>
 
 
 <style>
@@ -26,62 +26,37 @@ table {
 			<td colspan="2" align="center">ADMINISTRATOR - SISTEM PEMINJAMAN BUKU</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">UPDATE BOOK</td>
+			<td colspan="2" align="center">UPDATE BOOK STATUS</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2" align="right">
-				<a href="{{url('admin/admin_list_book')}}"> 
-					List of Book
+				<a href="{{route('admin_list_book_status')}}"> 
+					<b>Manage Status</b>
 				</a>
 				|
-				<a href="{{route('admin_list_status')}}"> 
-					Manage Status
+				<a href="{{url('admin/admin_list_book')}}"> 
+					<b>Manage Book</b>
 				</a>
 			</td>
 		</tr>
 		<!-- submit form here -->
-		<form method="post" action="{{url(route('admin_save_update_book'))}}">
+		<form method="post" action="{{url(route('admin_save_update_book_status'))}}">
 			{{ csrf_field() }} <!-- csrf tokenizer form-security -->
 			
 		<tr>
-			<td>Title</td>
-			<td><input type="text" name="bookTitle" value="{{$getBookDataById->title}}"></td>
-		</tr>
-
-		<tr>
-			<td>Description</td>
-			<td><textarea name="bookDescription">{{$getBookDataById->description}}</textarea></td>
-		</tr>
-		
-		<tr>
-			<td>Stock</td>
-			<td><input type="text" name="bookStock" value="{{$getBookDataById->stock}}"></td>
-		</tr>
-		
-		<tr>
-			<td>Category</td>
-			<td><input type="text" name="bookCategory" value="{{$getBookDataById->category}}"></td>
-		</tr>
-		
-		<tr>
-			<td>Author</td>
-			<td><input type="text" name="bookAuthor" value="{{$getBookDataById->author}}"></td>
-		</tr>
-		
-		<tr>
 			<td>Status</td>
-			<td><input type="text" name="bookStatus" value="{{$getBookDataById->status}}"></td>
+			<td><input type="text" name="bookStatus" value="{{$getBookStatusDataById->status}}"></td>
 		</tr>
 		
 		<tr>
 			<td>Last Updated</td>
-			<td>{{$getBookDataById->updated_at}}</td>
+			<td>{{$getBookStatusDataById->updated_at}}</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-			<input type="hidden" name="bookId" value="{{$getBookDataById->id}}">
+			<input type="hidden" name="bookStatusId" value="{{$getBookStatusDataById->id}}">
 			<input type="submit" value="SAVE" style="width: 40%">
 			</td>
 		</tr>

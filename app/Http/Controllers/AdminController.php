@@ -72,18 +72,16 @@ class AdminController extends Controller
     	return redirect()->route('admin_list_book');
     }
     
-    public function listStatus(){
-//     	dd("test");
+    public function listBookStatus(){
     	$getStatus = $this->statusRepo->getDataRepository();
-    	return view('admin-list-status')->with('getStatusData', $getStatus);
+    	return view('admin-list-book-status')->with('getStatusData', $getStatus);
     }
 	
-    public function addStatus(){
-    	return view('admin-add-status');
+    public function addBookStatus(){
+    	return view('admin-add-book-status');
     }
     
-    public function saveStatus(StoreDataStatus $request){
-//     	    	return dd($request->all());
+    public function saveBookStatus(StoreDataStatus $request){
     	$storeData = $this->statusRepo->storeDataRepository($request);
     	$request->session()->flash('message', $storeData['responseMessage']);
     	if(!$storeData['responseStatus'])
@@ -92,5 +90,32 @@ class AdminController extends Controller
 			$request->session()->flash('alert-class', 'alert-success');
     			
 		return back();
+    }
+    
+    public function updateBookStatus($id){
+    	$getBookStatusById= $this->statusRepo->getByIdDataRepository($id);
+    	return view('admin-update-book-status')->with('getBookStatusDataById', $getBookStatusById);
+    }
+    
+    public function saveUpdateBookStatus(StoreDataStatus $request){
+    	$updateData = $this->statusRepo->saveUpdateDataRepository($request);
+    	$request->session()->flash('message', $updateData['responseMessage']);
+    	if(!$updateData['responseStatus'])
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	else
+    		$request->session()->flash('alert-class', 'alert-success');
+    	
+    	return redirect()->route('admin_list_book_status');
+    }
+    
+    public function saveDeleteBookStatus(Request $request, $id){
+    	$deleted = $this->statusRepo->deleteDataRepository($id);
+    	$request->session()->flash('message', $deleted['responseMessage']);
+    	if(!$deleted['responseStatus'])
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	else
+    		$request->session()->flash('alert-class', 'alert-success');
+    			
+    	return redirect()->route('admin_list_book_status');
     }
 }

@@ -11,10 +11,10 @@ class StatusRepository{
 			$statusRepo = new Status();
 			$statusRepo->status = $request['bookStatus'];
 			$statusRepo->save();
-			$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil disimpan"];
+			$response = ["responseStatus"=>true, "responseMessage"=>"Data status buku berhasil disimpan"];
 			
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil disimpan"];
+			$response = ["responseMessage"=>"Maaf, Data status buku tidak berhasil disimpan"];
 		}
 		return $response;
 	}
@@ -26,39 +26,26 @@ class StatusRepository{
 	}
 	
 	public function getByIdDataRepository($id){
-		$getBookById = new Book();
-		$getBookById = Book::find($id);
-		return $getBookById;
+		$getBookStatus = new Status();
+		$getBookStatus = Status::find($id);
+		return $getBookStatus;
 	}
 	
 	public function saveUpdateDataRepository($request = []){
 		$response = ["responseStatus"=>false, "responseMessage"=>""];
 		try {
-			$bookRepo = new Book();
-// 			$bookRepo->title = $request['bookTitle'];
-// 			$bookRepo->description = $request['bookDescription'];
-// 			$bookRepo->stock = $request['bookStock'];
-// 			$bookRepo->category = $request['bookCategory'];
-// 			$bookRepo->author = $request['bookAuthor'];
-// 			$bookRepo->status = $request['bookStatus'];
-// 			dd($request['bookStatus']);
-			
-			$bookRepo->where('id',$request['bookId'])->update(
+			$statusRepo = new Status();
+			$statusRepo->where('id',$request['bookStatusId'])->update(
 					[
-						'title'=>$request['bookTitle'],
-						'description'=>$request['bookDescription'],
-						'stock'=>$request['bookStock'],
-						'category'=>$request['bookCategory'],
-						'author'=>$request['bookAuthor'],
 						'status'=>$request['bookStatus']
 					]
 						
 					);
 			
-			$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil diperbaharui"];
+			$response = ["responseStatus"=>true, "responseMessage"=>"Data status buku berhasil diperbaharui"];
 			
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil diperbaharui"];
+			$response = ["responseMessage"=>"Maaf, Data status buku tidak berhasil diperbaharui"];
 		}
 		return $response;
 	}
@@ -66,13 +53,13 @@ class StatusRepository{
 	public function deleteDataRepository($id){
 		$response = ["responseStatus"=>false, "responseMessage"=>""];
 		try {
-			$bookRepo = new Book();
-			$bookRepo->where('id',$id)->delete();
+			$statusRepo = new Status();
+			$statusRepo->where('id',$id)->delete();
 			
-			$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil dihapus"];
+			$response = ["responseStatus"=>true, "responseMessage"=>"Data status buku berhasil dihapus"];
 			
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil dihapus"];
+			$response = ["responseMessage"=>"Maaf, Data status buku tidak berhasil dihapus"];
 		}
 		return $response;
 	}

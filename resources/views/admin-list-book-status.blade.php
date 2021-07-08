@@ -37,7 +37,7 @@ table {
 		@endif
 		<tr>
 			<td colspan="8" align="right">
-				<a href="{{route('admin_add_status')}}">
+				<a href="{{route('admin_add_book_status')}}">
 					<b>Add New Status</b>
 				</a>
 				|
@@ -56,11 +56,11 @@ table {
 			<td>{{$status->status}}</td>
 			<td>{{$status->updated_at}}</td>
 			<td>
-				<a href="{{url(route('admin_update_book',$status->id))}}">
+				<a href="{{url(route('admin_update_book_status',$status->id))}}">
 					Update
 				</a>
 				|
-				<a href="{{url(route('admin_save_delete_book',$status->id))}}">
+				<a href="{{url(route('admin_save_delete_book_status',$status->id))}}">
 					Delete
 				</a>
 			</td>
