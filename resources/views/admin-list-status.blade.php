@@ -53,14 +53,14 @@ table {
 		</tr>
 		 @foreach ($getStatusData as $status)
 		 <tr>
-			<td>{{$book->status}}</td>
-			<td>{{$book->updated_at}}</td>
+			<td>{{$status->status}}</td>
+			<td>{{$status->updated_at}}</td>
 			<td>
-				<a href="{{url(route('admin_update_book',$book->id))}}">
+				<a href="{{url(route('admin_update_book',$status->id))}}">
 					Update
 				</a>
 				|
-				<a href="{{url(route('admin_save_delete_book',$book->id))}}">
+				<a href="{{url(route('admin_save_delete_book',$status->id))}}">
 					Delete
 				</a>
 			</td>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Admin - Add Book</title>
+<title>Admin - Add Status</title>
 
 
 <style>
@@ -26,51 +26,24 @@ table {
 			<td colspan="2" align="center">ADMINISTRATOR - SISTEM PEMINJAMAN BUKU</td>
 		</tr>
 		<tr>
-			<td colspan="2" align="center">ADD NEW BOOK</td>
+			<td colspan="2" align="center">ADD NEW STATUS</td>
 		</tr>
 		
 		<tr>
 			<td colspan="2" align="right">
-				<a href="{{url('admin/admin_list_book')}}"> 
-					<b>List of Book</b>
+				<a href="{{url('admin/admin_list_status')}}"> 
+					<b>List of Status</b>
 				</a>
 				|
-				<a href="{{route('admin_list_status')}}"> 
-					<b>Manage Status</b>
+				<a href="{{route('admin_list_book')}}"> 
+					<b>Manage Book</b>
 				</a>
 			</td>
 		</tr>
 		<!-- submit form here -->
-		<form method="post" action="{{url(route('admin_save_book'))}}">
+		<form method="post" action="{{url(route('admin_save_status'))}}">
 			{{ csrf_field() }}
 			<!-- csrf tokenizer form-security -->
-		
-		
-		<tr>
-			<td>Title</td>
-			<td><input type="text" name="bookTitle"></td>
-		</tr>
-
-		<tr>
-			<td>Description</td>
-			<td><textarea name="bookDescription"></textarea></td>
-		</tr>
-		
-		<tr>
-			<td>Stock</td>
-			<td><input type="text" name="bookStock"></td>
-		</tr>
-		
-		<tr>
-			<td>Category</td>
-			<td><input type="text" name="bookCategory"></td>
-		</tr>
-		
-		<tr>
-			<td>Author</td>
-			<td><input type="text" name="bookAuthor"></td>
-		</tr>
-		
 		<tr>
 			<td>Status</td>
 			<td><input type="text" name="bookStatus"></td>

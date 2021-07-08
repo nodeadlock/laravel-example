@@ -7,6 +7,7 @@ use App\Http\Requests\StoreDataBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Repository\StatusRepository;
+use App\Http\Requests\StoreDataStatus;
 
 class AdminController extends Controller
 {
@@ -72,9 +73,24 @@ class AdminController extends Controller
     }
     
     public function listStatus(){
-    	dd("test");
+//     	dd("test");
     	$getStatus = $this->statusRepo->getDataRepository();
     	return view('admin-list-status')->with('getStatusData', $getStatus);
     }
 	
+    public function addStatus(){
+    	return view('admin-add-status');
+    }
+    
+    public function saveStatus(StoreDataStatus $request){
+//     	    	return dd($request->all());
+    	$storeData = $this->statusRepo->storeDataRepository($request);
+    	$request->session()->flash('message', $storeData['responseMessage']);
+    	if(!$storeData['responseStatus'])
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	else
+			$request->session()->flash('alert-class', 'alert-success');
+    			
+		return back();
+    }
 }
