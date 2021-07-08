@@ -32,7 +32,7 @@ table {
 		<tr>
 			<td colspan="2" align="right">
 				<a href="{{url('admin/admin_list_book')}}"> 
-					<b>List of Book</b>
+					<b>Manage Book</b>
 				</a>
 				|
 				<a href="{{route('admin_list_book_status')}}"> 
