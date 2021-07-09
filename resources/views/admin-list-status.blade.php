@@ -37,7 +37,7 @@ table {
 		@endif
 		<tr>
 			<td colspan="8" align="right">
-				<a href="{{route('admin_add_book_status')}}">
+				<a href="{{route('admin_add_status')}}">
 					<b>Add New Status</b>
 				</a>
 				|
@@ -51,16 +51,16 @@ table {
 			<td>Date Updated</td>
 			<td>Action</td>
 		</tr>
-		 @foreach ($getStatusData as $status)
+		 @foreach ($status as $data)
 		 <tr>
-			<td>{{$status->status}}</td>
-			<td>{{$status->updated_at}}</td>
+			<td>{{$data->status}}</td>
+			<td>{{$data->updated_at}}</td>
 			<td>
-				<a href="{{url(route('admin_update_book_status',$status->id))}}">
+				<a href="{{url(route('admin_update_status',$data->id))}}">
 					Update
 				</a>
 				|
-				<a href="{{url(route('admin_save_delete_book_status',$status->id))}}">
+				<a href="{{url(route('admin_save_delete_status',$data->id))}}">
 					Delete
 				</a>
 			</td>

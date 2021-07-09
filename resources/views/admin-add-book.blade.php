@@ -35,7 +35,7 @@ table {
 					<b>Manage Book</b>
 				</a>
 				|
-				<a href="{{route('admin_list_book_status')}}"> 
+				<a href="{{route('admin_list_status')}}"> 
 					<b>Manage Status</b>
 				</a>
 			</td>
@@ -73,7 +73,15 @@ table {
 		
 		<tr>
 			<td>Status</td>
-			<td><input type="text" name="bookStatus"></td>
+			<td>
+				<select name="bookStatus">
+				@foreach($status as $data)
+					<option value="{{$data->status}}">
+						{{$data->status}}
+					</option>
+				@endforeach
+				</select>
+			</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>

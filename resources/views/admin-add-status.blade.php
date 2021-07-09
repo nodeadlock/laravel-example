@@ -31,7 +31,7 @@ table {
 		
 		<tr>
 			<td colspan="2" align="right">
-				<a href="{{url('admin/admin_list_book_status')}}"> 
+				<a href="{{url('admin/admin_list_status')}}"> 
 					<b>Manage Status</b>
 				</a>
 				|
@@ -41,7 +41,7 @@ table {
 			</td>
 		</tr>
 		<!-- submit form here -->
-		<form method="post" action="{{url(route('admin_save_book_status'))}}">
+		<form method="post" action="{{url(route('admin_save_status'))}}">
 			{{ csrf_field() }}
 			<!-- csrf tokenizer form-security -->
 		<tr>

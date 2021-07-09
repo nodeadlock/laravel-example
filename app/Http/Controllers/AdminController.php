@@ -1,88 +1,104 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Http\Repository\BookRepository;
 use App\Http\Requests\StoreDataBook;
+use App\Http\Requests\StoreDataStatus;
+use App\Models\Book;
+use App\Models\Status;
+use App\Services\BookService;
+use App\Services\StatusService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
-use App\Http\Repository\StatusRepository;
-use App\Http\Requests\StoreDataStatus;
 
 class AdminController extends Controller
 {
-	protected $bookRepo;
-	protected $statusRepo;
+	protected $bookService;
+	protected $statusService;
+
 	public function __construct(){
-		$this->bookRepo = new BookRepository();
-		$this->statusRepo = new StatusRepository();
+		$this->bookService = new BookService();
+		$this->statusService = new StatusService();
 	}
     public function indexAdmin(){
     	return view('admin-index');
     }
     
     public function listBook(){
-    	$getBook = $this->bookRepo->getDataRepository();
-    	return view('admin-list-book')->with('getBookData', $getBook);
+		$book = new Book();
+		$book = $book->latest()->get();
+		return view('admin-list-book', compact('book'));
     }
     
     public function addBook(){
-    	return view('admin-add-book');
+    	$status = new Status();
+    	$status = $status->get();
+    	return view('admin-add-book', compact('status'));
     }
     
-    public function updateBook($id){
-//     	dd($this->getBookById($id));
-    	$getBookById = $this->bookRepo->getByIdDataRepository($id);
-    	return view('admin-update-book')->with('getBookDataById', $getBookById);
-    }
-    
-    public function saveUpdateBook(StoreDataBook $request){
-    	$updateData = $this->bookRepo->saveUpdateDataRepository($request);
-    	$request->session()->flash('message', $updateData['responseMessage']);
-    	if(!$updateData['responseStatus'])
+    public function updateBook(Request $request){
+    	$book = $this->bookService->updateBook($request->id);
+    	if(!$book['responseStatus']){
+    		$request->session()->flash('message', $book['responseMessage']);
     		$request->session()->flash('alert-class', 'alert-danger');
-    	else
-			$request->session()->flash('alert-class', 'alert-success');
+    		return redirect()->back();
+    	}
+    	$book = $book['responseData'];
+    	return view('admin-update-book', compact('book'));
+    }
+    
+    public function saveUpdateBook(Request $request){
+    	$book = $this->bookService->saveUpdateBook($request->all(), $request->bookId);
+    	if(!$book['responseStatus']){
+    		$request->session()->flash('message', $book['responseMessage']);
+    		$request->session()->flash('alert-class', 'alert-danger');
+    		return redirect()->back();
+    		
+    	}else{
+    		$request->session()->flash('message', $book['responseMessage']);
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	}
+    	
     	return redirect()->route('admin_list_book');
     }
     
     public function saveBook(StoreDataBook $request){
-//     	return dd($request->all());
-    	$storeData = $this->bookRepo->storeDataRepository($request);
-// 		Session::flash('message', $storeData['responseMessage'] );
+    	$storeData = $this->bookService->storeBook($request);
     	$request->session()->flash('message', $storeData['responseMessage']);
 		if(!$storeData['responseStatus'])
-// 			Session::flash('alert-class', 'alert-danger');
 			$request->session()->flash('alert-class', 'alert-danger');
 		else
-// 			Session::flash('alert-class', 'alert-success');
 			$request->session()->flash('alert-class', 'alert-success');
 				
 		return back();
     }
     
-    public function saveDeleteBook(Request $request, $id){
-    	$deleted = $this->bookRepo->deleteDataRepository($id);
-    	$request->session()->flash('message', $deleted['responseMessage']);
-    	if(!$deleted['responseStatus'])
+    public function deleteBook(Request $request){
+    	$book = $this->bookService->deleteBook($request->id);
+    	if(!$book['responseStatus']){
+    		$request->session()->flash('message', $book['responseMessage']);
     		$request->session()->flash('alert-class', 'alert-danger');
-    	else
-    		$request->session()->flash('alert-class', 'alert-success');
+    		return redirect()->back();
+    		
+    	}else{
+    		$request->session()->flash('message', $book['responseMessage']);
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	}
     	
     	return redirect()->route('admin_list_book');
     }
     
-    public function listBookStatus(){
-    	$getStatus = $this->statusRepo->getDataRepository();
-    	return view('admin-list-book-status')->with('getStatusData', $getStatus);
+    public function listStatus(){
+    	$status = new Status();
+    	$status = $status->latest()->get();
+    	return view('admin-list-status', compact('status'));
     }
 	
-    public function addBookStatus(){
-    	return view('admin-add-book-status');
+    public function addStatus(){
+    	return view('admin-add-status');
     }
     
-    public function saveBookStatus(StoreDataStatus $request){
-    	$storeData = $this->statusRepo->storeDataRepository($request);
+    public function saveStatus(StoreDataStatus $request){
+    	$storeData = $this->statusService->storeStatus($request);
     	$request->session()->flash('message', $storeData['responseMessage']);
     	if(!$storeData['responseStatus'])
     		$request->session()->flash('alert-class', 'alert-danger');
@@ -92,30 +108,44 @@ class AdminController extends Controller
 		return back();
     }
     
-    public function updateBookStatus($id){
-    	$getBookStatusById= $this->statusRepo->getByIdDataRepository($id);
-    	return view('admin-update-book-status')->with('getBookStatusDataById', $getBookStatusById);
+    public function updateStatus(Request $request){
+    	$status = $this->statusService->updateStatus($request->id);
+    	if(!$status['responseStatus']){
+    		$request->session()->flash('message', $status['responseMessage']);
+    		$request->session()->flash('alert-class', 'alert-danger');
+    		return redirect()->back();
+    	}
+    	$status = $status['responseData'];
+    	return view('admin-update-status', compact('status'));
     }
     
-    public function saveUpdateBookStatus(StoreDataStatus $request){
-    	$updateData = $this->statusRepo->saveUpdateDataRepository($request);
-    	$request->session()->flash('message', $updateData['responseMessage']);
-    	if(!$updateData['responseStatus'])
+    public function saveUpdateStatus(Request $request){
+		$status = $this->statusService->saveUpdateStatus($request->all(), $request->statusId);
+		if(!$status['responseStatus']){
+			$request->session()->flash('message', $status['responseMessage']);
+			$request->session()->flash('alert-class', 'alert-danger');
+			return redirect()->back();
+			
+		}else{
+			$request->session()->flash('message', $status['responseMessage']);
+			$request->session()->flash('alert-class', 'alert-danger');
+		}
+		
+		return redirect()->route('admin_list_status');
+    }
+    
+    public function deleteStatus(Request $request, $id){
+    	$status = $this->statusService->deleteStatus($request->id);
+    	if(!$status['responseStatus']){
+    		$request->session()->flash('message', $status['responseMessage']);
     		$request->session()->flash('alert-class', 'alert-danger');
-    	else
-    		$request->session()->flash('alert-class', 'alert-success');
+    		return redirect()->back();
+    		
+    	}else{
+    		$request->session()->flash('message', $status['responseMessage']);
+    		$request->session()->flash('alert-class', 'alert-danger');
+    	}
     	
-    	return redirect()->route('admin_list_book_status');
-    }
-    
-    public function saveDeleteBookStatus(Request $request, $id){
-    	$deleted = $this->statusRepo->deleteDataRepository($id);
-    	$request->session()->flash('message', $deleted['responseMessage']);
-    	if(!$deleted['responseStatus'])
-    		$request->session()->flash('alert-class', 'alert-danger');
-    	else
-    		$request->session()->flash('alert-class', 'alert-success');
-    			
-    	return redirect()->route('admin_list_book_status');
+    	return redirect()->route('admin_list_status');
     }
 }

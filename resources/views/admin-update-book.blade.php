@@ -32,11 +32,11 @@ table {
 		<tr>
 			<td colspan="2" align="right">
 				<a href="{{url('admin/admin_list_book')}}"> 
-					List of Book
+					<b>Manage Book</b>
 				</a>
 				|
-				<a href="{{route('admin_list_book_status')}}"> 
-					Manage Status
+				<a href="{{route('admin_list_status')}}"> 
+					<b>Manage Status</b>
 				</a>
 			</td>
 		</tr>
@@ -46,42 +46,42 @@ table {
 			
 		<tr>
 			<td>Title</td>
-			<td><input type="text" name="bookTitle" value="{{$getBookDataById->title}}"></td>
+			<td><input type="text" name="bookTitle" value="{{$book->title}}"></td>
 		</tr>
 
 		<tr>
 			<td>Description</td>
-			<td><textarea name="bookDescription">{{$getBookDataById->description}}</textarea></td>
+			<td><textarea name="bookDescription">{{$book->description}}</textarea></td>
 		</tr>
 		
 		<tr>
 			<td>Stock</td>
-			<td><input type="text" name="bookStock" value="{{$getBookDataById->stock}}"></td>
+			<td><input type="text" name="bookStock" value="{{$book->stock}}"></td>
 		</tr>
 		
 		<tr>
 			<td>Category</td>
-			<td><input type="text" name="bookCategory" value="{{$getBookDataById->category}}"></td>
+			<td><input type="text" name="bookCategory" value="{{$book->category}}"></td>
 		</tr>
 		
 		<tr>
 			<td>Author</td>
-			<td><input type="text" name="bookAuthor" value="{{$getBookDataById->author}}"></td>
+			<td><input type="text" name="bookAuthor" value="{{$book->author}}"></td>
 		</tr>
 		
 		<tr>
 			<td>Status</td>
-			<td><input type="text" name="bookStatus" value="{{$getBookDataById->status}}"></td>
+			<td><input type="text" name="bookStatus" value="{{$book->status}}"></td>
 		</tr>
 		
 		<tr>
 			<td>Last Updated</td>
-			<td>{{$getBookDataById->updated_at}}</td>
+			<td>{{$book->updated_at}}</td>
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
 			<td>
-			<input type="hidden" name="bookId" value="{{$getBookDataById->id}}">
+			<input type="hidden" name="bookId" value="{{$book->id}}">
 			<input type="submit" value="SAVE" style="width: 40%">
 			</td>
 		</tr>
