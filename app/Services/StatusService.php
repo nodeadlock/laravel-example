@@ -13,37 +13,43 @@ class StatusService{
 	}
 	
 	public function storeStatus($request = []){
-		$response = ["responseStatus"=>false, "responseMessage"=>""];
 		try {
 			$statusRepo = new Status();
 			$statusRepo->status = $request['bookStatus'];
 			$statusRepo->save();
 			$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil disimpan"];
-			
+			return $response;
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil disimpan".$e->getMessage()];
+			$response = ["responseStatus"=>false, "responseMessage"=>"Maaf, Data tidak berhasil disimpan. Error: ".$e->getMessage()];
+			return $response;
 		}
-		return $response;
+		
 	}
 	
 	public function updateStatus($id = null){
-		$response = ["responseStatus"=>false, "responseMessage"=>"", "responseData"=>""];
-		
 		try {
-			if($id==null)
+			if($id==null){
 				$response = ["responseStatus"=>false, "responseMessage"=>"Data tidak ditemukan"];
+				return $response;
 				
-			$data = $this->statusRepo->findById($id);
-			$response = ["responseStatus"=>true, "responseData"=>$data];
-			
+			}else{
+				$data = $this->statusRepo->findById($id);
+				if(!$data){
+					$response = ["responseStatus"=>false, "responseMessage"=>"Data tidak ditemukan pada id: ".$id];
+					return $response;
+				}else{
+					$response = ["responseStatus"=>true, "responseData"=>$data];
+					return $response;
+				}
+			}
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data data tidak ditemukan. Error: ".$e->getMessage()];
+			$response = ["responseStatus"=>false, "responseMessage"=>"Maaf, Data data tidak ditemukan. Error: ".$e->getMessage()];
+			return $response;
 		}
-		return $response;
+		
 	}
 	
 	public function saveUpdateStatus($request, $id=null){
-		$response = ["responseStatus"=>false, "responseMessage"=>"", "responseData"=>""];
 		try {
 			if($id==null)
 				$response = ["responseStatus"=>false, "responseMessage"=>"Data tidak ditemukan"];
@@ -58,29 +64,34 @@ class StatusService{
 			$response = ["responseStatus"=>true, "responseMessage"=>"Data '".$data->status."' berhasil diperbaharui"];
 			
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil diperbaharui. Error: ".$e->getMessage()];
+			$response = ["responseStatus"=>false, "responseMessage"=>"Maaf, Data tidak berhasil diperbaharui. Error: ".$e->getMessage()];
 		}
 		return $response;
 	}
 	
 	
 	public function deleteStatus($id=null){
-		$response = ["responseStatus"=>false, "responseMessage"=>"", "responseData"=>""];
 		try {
-			if($id==null)
+			if($id==null){
 				$response = ["responseStatus"=>false, "responseMessage"=>"Data tidak ditemukan"];
+				return $response;
 				
+			}else{
 				$data = $this->statusRepo->findById($id);
-				if(!$data)
+				if(!$data){
 					$response = ["responseStatus"=>false, "responseMessage"=>"Data tidak ditemukan pada id: ".$id];
+					return $response;
 					
-				$data->delete();
-					
-				$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil dihapus"];
-					
+				}else{
+					$data->delete();
+					$response = ["responseStatus"=>true, "responseMessage"=>"Data berhasil dihapus"];
+					return $response;
+				}
+			}
 		} catch (Exception $e) {
-			$response = ["responseMessage"=>"Maaf, Data tidak berhasil dihapus. Error: ".$e->getMessage()];
+			$response = ["responseStatus"=>false, "responseMessage"=>"Maaf, Data tidak berhasil dihapus. Error: ".$e->getMessage()];
+			return $response;
 		}
-		return $response;
+		
 	}
 }
